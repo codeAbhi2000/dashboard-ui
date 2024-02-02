@@ -74,7 +74,7 @@ function Uploads() {
       sx={{
         width: "100%",
         height: "auto",
-        p: 2,
+        p: {sm:2,xs:0},
       }}
     >
       <Stack
@@ -98,8 +98,8 @@ function Uploads() {
         >
           <Box
             sx={{
-              width: "60%",
-              height: "40vh",
+              width: {sm:"60%",xs:'80%'},
+              height: {sm:"40vh",xs:'30vh'},
               border: "2px dotted #605BFF",
               borderRadius: "16px",
             }}

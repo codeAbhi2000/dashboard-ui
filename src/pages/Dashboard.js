@@ -9,13 +9,15 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link,Navigate } from "react-router-dom";
 import logo from "../assets/icons8-pulse-30.png";
 import CloseIcon from "@mui/icons-material/Close";
 
 function Dashboard() {
+    const user = JSON.parse(localStorage.getItem('user'))
+   
   const [ToggleSidebar, setToggleSidebar] = useState("none");
-  return (
+  if(user){return (
     <Box
       sx={{
         width: "100%",
@@ -246,7 +248,9 @@ function Dashboard() {
         </Stack>
       </Box>
     </Box>
-  );
+  )}else{
+    return <Navigate to={'/'}/>
+  };
 }
 
 export default Dashboard;

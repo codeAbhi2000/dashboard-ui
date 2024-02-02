@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -11,23 +11,58 @@ import ShowChartIcon from "@mui/icons-material/ShowChart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import XIcon from "@mui/icons-material/X";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import GoogleIgon from "../assets/icons8-google-32.png";
 import AppleIcon from "../assets/icons8-apple-32.png";
 import { useGoogleLogin } from "@react-oauth/google";
+import Axios from 'axios'
 
 function Login() {
-    const [user, setUser] = useState([]);
 
-  
+
+  const navigate = useNavigate()
     const login = useGoogleLogin({
       onSuccess: (codeResponse) => {
-        setUser(codeResponse);
-        console.log(codeResponse);
+        
+        // console.log(codeResponse);
+        Axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse?.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${codeResponse?.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          localStorage.setItem("user",JSON.stringify(res.data));
+        })
+        .catch((err) => console.log(err));
+    
+            navigate('/dashboard')
       },
       onError: (error) => console.log("Login Failed:", error),
     });
   
+    /*useEffect(() => {
+        if (user) {
+          Axios
+            .get(
+              `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${user?.access_token}`,
+                  Accept: "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              localStorage.setItem("user",JSON.stringify(res.data));
+            })
+            .catch((err) => console.log(err));
+        }
+      }, [user]);*/
 
   return (
     <Stack

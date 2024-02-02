@@ -16,9 +16,10 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import logo from "../assets/icons8-pulse-30.png";
-import { Stack } from "@mui/material";
+import { Avatar, Stack } from "@mui/material";
 
 export default function PrimarySearchAppBar({setToggleSidebar}) {
+    const user = JSON.parse(localStorage.getItem('user'))
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -37,6 +38,11 @@ export default function PrimarySearchAppBar({setToggleSidebar}) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
+  const handleLogout = ()=>{
+    handleMenuClose()
+    localStorage.removeItem('user')
+  }
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -61,6 +67,7 @@ export default function PrimarySearchAppBar({setToggleSidebar}) {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {user ?<MenuItem onClick={handleLogout}>Logout</MenuItem>:"none" }
     </Menu>
   );
 
@@ -174,7 +181,7 @@ export default function PrimarySearchAppBar({setToggleSidebar}) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar src={user?.picture} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
