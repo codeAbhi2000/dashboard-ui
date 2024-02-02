@@ -37,10 +37,11 @@ function Login() {
         )
         .then((res) => {
           localStorage.setItem("user",JSON.stringify(res.data));
+          navigate('/dashboard')
         })
         .catch((err) => console.log(err));
     
-            navigate('/dashboard')
+            
       },
       onError: (error) => console.log("Login Failed:", error),
     });
