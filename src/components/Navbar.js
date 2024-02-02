@@ -17,9 +17,11 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import logo from "../assets/icons8-pulse-30.png";
 import { Avatar, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function PrimarySearchAppBar({setToggleSidebar}) {
     const user = JSON.parse(localStorage.getItem('user'))
+    const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -42,6 +44,7 @@ export default function PrimarySearchAppBar({setToggleSidebar}) {
   const handleLogout = ()=>{
     handleMenuClose()
     localStorage.removeItem('user')
+    navigate('/')
   }
 
   const handleMobileMenuOpen = (event) => {
